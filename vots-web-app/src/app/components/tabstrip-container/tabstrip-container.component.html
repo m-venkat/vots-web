@@ -1,0 +1,30 @@
+<div id="tabParentContainer" style="width: 100%; background-color: #dcdcdc; white-space: nowrap; position: relative">
+  <div class="btn-group" style="position: absolute; right: 10px; padding-right:10px;padding-top:10px; float: right;z-index: 15" *ngIf="this.SelectedMenusAsTab.length > 0">
+    <!--<button type="button" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>-->
+    <i class="fas fa-chevron-circle-down" data-toggle="dropdown"></i>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item" (click)="onTabSwitch(childMenu)" href="#" *ngFor="let childMenu of this.SelectedMenusAsTab" [title]="childMenu.ChildMenuLabel">{{childMenu.ChildMenuLabel}}</a>
+    </div>
+  </div>
+  
+  <ul id="tabs">
+    <li *ngFor="let childMenu of this.SelectedMenusAsTab" [ngClass]="{'current': childMenu.IsCurrent}">
+      <a href="#" (click)="onTabSwitch(childMenu)" [title]="childMenu.ChildMenuLabel">{{childMenu.ChildMenuLabel}}</a>
+      <i class="fas fa-times closeButton" (click)="closeTab(childMenu)"></i>
+    </li>
+  </ul>
+
+  <div id="content" style="overflow: auto">
+    <printer-maintainance></printer-maintainance>
+    <div *ngFor="let childMenu of this.SelectedMenusAsTab" [style.display]="childMenu.IsCurrent ? 'block':'none'" style='width: 100%; height: 300px;'>
+      <!--This is tab Container for {{childMenu.ChildMenuLabel}}<br/>
+    This is to Check if Input is preserved between tab switches <input type="text"/>-->
+      <dcl-wrapper [type]="ref"></dcl-wrapper>
+    </div>
+  </div>
+
+</div>
+
+
+
+
